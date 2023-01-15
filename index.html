@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="En">
+    <head>
+        <title>Calculator</title>
+        <link href="style.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="calculator-grid">
+            <div class="calculator-screen">
+                <div class="savedAcc">
+                     ''
+                </div>
+                <div class="currentAcc">...hello...
+                </div>
+            </div>
+            <div class="calculator-keys">
+                <div><button onclick="deletePressed()">DEL</button><button onclick="clearScreen()">AC</button><button onclick="rootPress()">√ </button><button onclick="divisionPressed()">/</button></div>
+                <div><button onclick="digitPressed(7)">7</button><button onclick="digitPressed(8)">8</button><button onclick="digitPressed(9)">9</button><button onclick="multiplyPressed()">*</button></div>
+                <div><button onclick="digitPressed(4)">4</button><button onclick="digitPressed(5)">5</button><button onclick="digitPressed(6)">6</button><button onclick="subtractionPressed()">-</button></div>
+                <div><button onclick="digitPressed(1)">1</button><button onclick="digitPressed(2)">2</button><button onclick="digitPressed(2)">3</button><button onclick="additionPressed()">+</button></div>
+                <div><button onclick="signPressed()">+-</button><button onclick="digitPressed(0)">0</button><button onclick="dotPressed('.')">.</button><button onclick="equalPressed()">=</button></div>
+             </div>
+        </div> 
+        <script>
+            var acc="";
+            var savedAcc="";
+            var smallScreenAcc="";
+            var savedOpCode="";
+            const digitPressed = (digit) => {
+                if(acc.length>=12)  
+                    return;
+                acc=acc + (digit);
+                console.log('acc->', acc);
+                console.log('savedAcc->', savedAcc);
+                document.querySelector('div.currentAcc').innerText=acc;
+            }
+            const clearScreen = () => {
+                acc="";
+                savedAcc=""
+                document.querySelector('div.currentAcc').innerText=acc;
+                document.querySelector('div.savedAcc').innerText=savedAcc;
+            }
+            const deletePressed = () => {
+                acc=acc.substring(0,acc.length - 1);
+                console.log('acc->', acc);
+                console.log('savedAcc->', savedAcc);
+                document.querySelector('div.currentAcc').innerText=acc;
+                document.querySelector('div.savedAcc').innerText=savedAcc;
+            }
+            const dotPressed = () => {
+                if(acc.includes('.')){
+                    return;
+                }
+                digitPressed('.')
+            }
+            const signPressed = () => {
+                if(acc[0]=='-'){
+                    acc=acc.substring(1);
+                }
+                else{
+                    acc="-"+acc;
+                }
+                document.querySelector('div.currentAcc').innerText=acc;		
+            }
+            const rootPress = () => {
+                acc= Math.sqrt(parseFloat(acc))
+                console.log('acc->', acc);
+                console.log('savedAcc->', savedAcc);
+                document.querySelector('div.currentAcc').innerText=acc;
+                document.querySelector('div.savedAcc').innerText=savedAcc;
+}
+            const additionPressed = () => {
+                savedAcc=acc;
+                console.log('savedAcc->', savedAcc);
+                acc="";
+                savedOpCode="+";
+                console.log('acc->', acc);
+                console.log('savedOpCode->', savedOpCode);
+                document.querySelector('div.currentAcc').innerText=acc;
+                document.querySelector('div.savedAcc').innerText=savedAcc;
+            }
+
+            const subtractionPressed = () => {
+                savedAcc=acc;
+                console.log('savedAcc->', savedAcc);
+                acc="";
+                savedOpCode="-";
+                console.log('acc->', acc);
+                console.log('savedOpCode->', savedOpCode);
+                document.querySelector('div.currentAcc').innerText=acc;
+            }
+
+            const divisionPressed = () => {
+                savedAcc=acc;
+                console.log('savedAcc->', savedAcc);
+                acc="";
+                savedOpCode="/";
+                console.log('acc->', acc);
+                console.log('savedOpCode->', savedOpCode);
+                document.querySelector('div.currentAcc').innerText=acc;
+            }
+            const multiplyPressed = () => {
+                savedAcc=acc;
+                console.log('savedAcc->', savedAcc);
+                acc="";
+                savedOpCode="*";
+                console.log('acc->', acc);
+                console.log('savedOpCode->', savedOpCode);
+                document.querySelector('div.currentAcc').innerText=acc;
+            }
+            const equalPressed = () => {
+                if (savedOpCode=="+"){
+                    savedAcc=savedAcc + "+" + acc
+                    acc=(parseFloat(acc) + parseFloat(savedAcc))+"";         
+                }
+                else if (savedOpCode=="*"){
+                    savedAcc=savedAcc + "*" + acc
+                    acc=(parseFloat(acc) * parseFloat(savedAcc))+"";
+                }
+                else if (savedOpCode=="/"){
+                    savedAcc=savedAcc + "/" + acc
+                    acc=(parseFloat(savedAcc)) / (parseFloat(acc))+"";
+                }
+                else if (savedOpCode=="-"){
+                    savedAcc=savedAcc + "-" + acc
+                    acc=(parseFloat(savedAcc) - parseFloat(acc))+"";
+                } 
+                console.log('savedAcc->', savedAcc);
+                console.log('acc->', acc);
+                console.log('savedOpCode->', savedOpCode);
+            
+                document.querySelector('div.currentAcc').innerText=acc;
+                console.log('acc->', acc);	
+
+                document.querySelector('div.savedAcc').innerText=savedAcc;
+                console.log('savedAcc->', savedAcc);
+            }
+            </script>
+    </body>
+</html>
